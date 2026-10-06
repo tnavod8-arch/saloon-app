@@ -2,1198 +2,487 @@
 <html lang="si">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0d15">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Salon FELIX">
-  <title>Salon FELIX UNISEX — Hair / Beauty / Tattoo</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salon FELIX UNISEX</title>
   <style>
     :root {
-      --primary: #a855f7;
-      --secondary: #ec4899;
-      --gold: #d4af37;
-      --gold-glow: rgba(212, 175, 55, 0.4);
-      --bg: #0d0d15;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --radius: 18px;
+      --primary: #d4af37;
+      --primary-glow: rgba(212, 175, 55, 0.35);
+      --bg: #0d0d0d;
+      --card-bg: rgba(26, 26, 26, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: #a0a0a0;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 0%, #221c0f 0%, #0d0d0d 70%);
       color: var(--text);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      margin: 0;
+      padding: 20px 15px;
       min-height: 100vh;
-      overflow-x: hidden;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 20px);
     }
 
-    #waveCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.65;
-    }
-
-    #app {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
+    .container {
+      max-width: 480px;
       margin: 0 auto;
-      padding: 16px 16px 40px;
-      animation: fadeIn 0.4s ease-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .brand-header {
+    /* Logo & Header Animations */
+    header {
       text-align: center;
-      padding: 15px 10px 10px;
+      padding: 10px 0 25px;
     }
 
     .logo-wrapper {
       position: relative;
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 12px;
-      border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, var(--gold), var(--primary), var(--secondary));
-      box-shadow: 0 0 25px var(--gold-glow);
-      animation: logoPulse 4s infinite ease-in-out;
-    }
-
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 22px var(--gold-glow); }
-      50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(168, 85, 247, 0.6); }
-    }
-
-    .brand-logo {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--bg);
-      display: block;
-    }
-
-    .brand-badge {
       display: inline-block;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-transform: uppercase;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 8px;
+    }
+
+    .logo-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), transparent, var(--primary));
+      z-index: 0;
+      animation: spin 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    header img {
+      position: relative;
+      z-index: 1;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      object-fit: cover;
+      box-shadow: 0 0 20px var(--primary-glow);
+      transition: transform 0.4s ease;
+    }
+
+    header:hover img {
+      transform: scale(1.05) rotate(3deg);
     }
 
     h1 {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffffff, #fef08a, var(--gold));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 4px;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin: 12px 0 3px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
     }
 
-    h2 {
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 25px 0 12px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+    }
+
+    /* Interactive Cards */
+    .category-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hover & Mobile Touch Surprise Effect */
+    .category-card:hover, .category-card:active {
+      transform: translateY(-4px) scale(1.01);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px -5px var(--primary-glow), 0 0 10px rgba(212, 175, 55, 0.15);
+      background: rgba(35, 30, 20, 0.9);
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .category-title {
       font-size: 17px;
       font-weight: 700;
-      margin: 20px 0 12px;
-      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .category-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .arrow-icon {
+      color: var(--primary);
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      background: rgba(212, 175, 55, 0.1);
+      padding: 6px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .category-card.active .arrow-icon {
+      transform: rotate(180deg);
+      background: var(--primary);
+      color: #000;
+    }
+
+    /* Sub-services Accordion Animation */
+    .sub-services {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .category-card.active .sub-services {
+      max-height: 500px;
+      opacity: 1;
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      transition: all 0.4s ease-in-out;
+    }
+
+    .sub-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    p.subtext {
-      color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 12px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .card.clickable { cursor: pointer; }
-    .card.clickable:hover { border-color: rgba(212, 175, 55, 0.5); transform: translateY(-2px); }
-    .card.clickable:active { transform: scale(0.98); border-color: var(--primary); }
-
-    .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .row-wrap { flex-wrap: wrap; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 13px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(0, 0, 0, 0.4);
-      color: var(--text);
-      font-size: 14px;
-      margin-bottom: 12px;
-      outline: none;
-      transition: border 0.2s;
-    }
-
-    .input-field:focus { border-color: var(--gold); }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #7c3aed, var(--primary), var(--secondary));
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
-      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .btn:active { transform: scale(0.98); }
-    .btn-secondary { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--card-border); color: var(--text); box-shadow: none; }
-    .btn-whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); }
-    .btn-sm { width: auto; padding: 7px 12px; font-size: 12px; border-radius: 8px; box-shadow: none; }
-    .btn-danger { background: var(--danger); }
-    .btn-success { background: var(--success); }
-
-    .chip-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
-    .chip-scroll::-webkit-scrollbar { display: none; }
-
-    .chip {
-      flex: none;
-      padding: 9px 15px;
-      border-radius: 10px;
-      border: 1px solid var(--card-border);
-      background: var(--card-bg);
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .chip.selected { background: linear-gradient(135deg, var(--gold), #b8860b); border-color: transparent; color: #000; font-weight: 800; }
-    .chip.disabled { opacity: 0.3; text-decoration: line-through; pointer-events: none; }
-
-    .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
-
-    .nav-tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 4px;
-      margin: 14px 0;
-    }
-
-    .nav-tab {
-      flex: 1;
-      text-align: center;
-      padding: 9px 4px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-    }
-
-    .nav-tab.active { background: linear-gradient(135deg, #7c3aed, var(--primary)); color: #ffffff; font-weight: 700; }
-
-    .badge { padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    .badge-pending { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.4); }
-    .badge-confirmed { background: rgba(168, 85, 247, 0.2); color: var(--primary); border: 1px solid rgba(168, 85, 247, 0.4); }
-    .badge-done { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); }
-    .badge-cancelled, .badge-noshow { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.4); }
-
-    .qr-container {
-      text-align: center;
-      background: #ffffff;
-      padding: 16px;
-      border-radius: 16px;
-      display: inline-block;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      margin: 12px 0;
-    }
-
-    .qr-container img {
-      width: 170px;
-      height: 170px;
-      display: block;
-      margin: 0 auto;
+      padding: 10px 6px;
       border-radius: 8px;
+      transition: background 0.2s;
     }
 
-    .modal-overlay {
+    .sub-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .sub-name {
+      font-size: 14px;
+      color: #ececec;
+    }
+
+    .price-tag {
+      background: linear-gradient(135deg, #d4af37, #f3e5ab);
+      color: #000;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Buttons */
+    .btn {
+      background: linear-gradient(135deg, #d4af37, #aa820a);
+      color: #000;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 700;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover, .btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+      filter: brightness(1.1);
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 100;
-      display: flex;
-      align-items: flex-end;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
       justify-content: center;
-      animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
     }
 
-    @keyframes modalSlideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
-      background: #121220;
-      border: 1px solid var(--card-border);
-      border-radius: 22px 22px 0 0;
-      padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+      background: #181818;
+      padding: 24px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      border: 1px solid var(--primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    input, select {
       width: 100%;
-      max-width: 680px;
-      max-height: 88vh;
-      overflow-y: auto;
+      padding: 12px;
+      margin: 8px 0 12px;
+      background: #252525;
+      border: 1px solid #3d3d3d;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
     }
 
-    #toast {
-      position: fixed;
-      top: calc(16px + env(safe-area-inset-top, 0px));
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: #1e1e30;
-      border: 1px solid var(--gold);
-      color: var(--text);
-      padding: 9px 18px;
-      border-radius: 30px;
+    input:focus, select:focus {
+      border-color: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 35px;
       font-size: 12px;
-      font-weight: 700;
-      z-index: 200;
-      opacity: 0;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      color: var(--text-muted);
     }
 
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
 
-    .footer-link { text-align: center; margin-top: 30px; font-size: 12px; color: var(--text-muted); }
-    .footer-link a { color: var(--gold); text-decoration: underline; cursor: pointer; }
+    footer a:hover { opacity: 1; }
   </style>
 </head>
 <body>
 
-  <canvas id="waveCanvas"></canvas>
-  <div id="app"></div>
-  <div id="toast">Notice</div>
+<div class="container">
+  <header>
+    <div class="logo-wrapper">
+      <img src="223291_3.jpg" alt="Salon FELIX Logo" onerror="this.src='https://via.placeholder.com/95?text=FELIX'">
+    </div>
+    <h1>Salon FELIX UNISEX</h1>
+    <p class="subtitle">Hair • Beauty • Tattoo | Sahan Anusha</p>
+  </header>
+
+  <div class="section-title">අපගේ සේවාවන් (Services)</div>
+
+  <div id="services-list"></div>
+
+  <button class="btn" onclick="openBookingModal()">Appointment එකක් දාන්න (Book Now)</button>
+
+  <footer>
+    <p>© Salon FELIX UNISEX</p>
+    <p><a href="javascript:void(0)" onclick="openAdminModal()">Salon Owner / Admin Login</a></p>
+  </footer>
+</div>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <h3 style="margin-top:0; color:var(--primary);">Booking එකක් දාන්න</h3>
+    <input type="text" id="custName" placeholder="ඔබේ නම (Your Name)">
+    <input type="tel" id="custPhone" placeholder="දුරකථන අංකය (Phone Number)">
+    <select id="serviceSelect"></select>
+    <input type="date" id="bookDate">
+    <input type="time" id="bookTime">
+    <button class="btn" onclick="sendWhatsApp()">WhatsApp මගින් Confirm කරන්න</button>
+    <button class="btn" style="background:#333; color:#fff; box-shadow:none;" onclick="closeModal('bookingModal')">වසා දමන්න</button>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal">
+  <div class="modal-content">
+    <h3 style="margin-top:0; color:var(--primary);">Admin Dashboard Login</h3>
+    <input type="password" id="adminPass" placeholder="Admin Password">
+    <button class="btn" onclick="loginAdmin()">Login</button>
+    <button class="btn" style="background:#333; color:#fff; box-shadow:none;" onclick="closeModal('adminModal')">වසා දමන්න</button>
+    
+    <div id="adminPanel" style="display:none; margin-top:15px; border-top:1px solid #333; padding-top:12px;">
+      <h4 style="margin:5px 0 10px; font-size:14px; color:var(--primary);">Ganan & Services Edit Karanna:</h4>
+      <input type="text" id="newSubName" placeholder="Sub-service Name">
+      <input type="number" id="newSubPrice" placeholder="Mila (Rs.)">
+      <select id="catSelect">
+        <option value="0">Hair Cut & Styling</option>
+        <option value="1">Beauty & Care</option>
+        <option value="2">Tattoo & Arts</option>
+      </select>
+      <button class="btn" onclick="addCustomService()">Service එක එකතු කරන්න</button>
+    </div>
+  </div>
+</div>
 
 <script>
-  // BRAND IMAGE & LOGO CONFIG
-  const APP_LOGO_IMAGE = "223291_3.jpg"; // Local Image Path
+  const defaultData = [
+    {
+      category: "Hair Cut & Styling",
+      desc: "Gents & Ladies haircuts, styling & coloring",
+      subs: [
+        { name: "Gents Normal Haircut", price: 1000 },
+        { name: "Gents Beard Trim & Style", price: 800 },
+        { name: "Ladies Haircut & Wash", price: 2500 },
+        { name: "Hair Color / Highlights", price: 3500 }
+      ]
+    },
+    {
+      category: "Beauty & Care",
+      desc: "Facials, cleanup & skin treatments",
+      subs: [
+        { name: "Clean Up", price: 2000 },
+        { name: "Full Facial", price: 4500 },
+        { name: "Pedicure / Manicure", price: 3000 }
+      ]
+    },
+    {
+      category: "Tattoo & Arts",
+      desc: "Custom permanent & temporary tattoos",
+      subs: [
+        { name: "Custom Tattoo (per sq inch)", price: 1500 },
+        { name: "Temporary Tattoo", price: 1000 }
+      ]
+    }
+  ];
 
-  const $ = id => document.getElementById(id);
-  const pad = n => String(n).padStart(2, '0');
-  const formatDate = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  const toMinutes = timeStr => { const [h, m] = timeStr.split(':'); return parseInt(h) * 60 + parseInt(m); };
-  const toTimeString = mins => `${pad(Math.floor(mins / 60))}:${pad(mins % 60)}`;
-  const format12H = timeStr => {
-    let [h, m] = timeStr.split(':');
-    h = parseInt(h);
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    return `${h % 12 || 12}:${m} ${ampm}`;
-  };
-  const formatLKR = amt => 'Rs. ' + Math.round(amt).toLocaleString();
-  const escapeHTML = str => String(str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let salonData = JSON.parse(localStorage.getItem('felix_services')) || defaultData;
 
-  async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
+  function renderServices() {
+    const container = document.getElementById('services-list');
+    const select = document.getElementById('serviceSelect');
+    container.innerHTML = '';
+    select.innerHTML = '';
 
-  const STORAGE_KEY = 'salon_felix_pwa_v1';
-  let DB = null;
-
-  try { DB = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e){}
-
-  if (!DB) {
-    DB = {
-      passwordHash: null,
-      salon: { 
-        name: 'Salon FELIX UNISEX', 
-        tagline: 'Hair / Beauty / Tattoo — By Sahan Anusha',
-        whatsapp: '94703191313', 
-        phone: '(070) 319 1313',
-        openHour: 9, 
-        closeHour: 20, 
-        bufferMins: 15 
-      },
-      services: [
-        { id: 1, name: 'Hair Cut & Style (කොණ්ඩය කැපීම)', price: 1500, duration: 30 },
-        { id: 2, name: 'Beard Trim & Shape (රැවුල කැපීම)', price: 800, duration: 20 },
-        { id: 3, name: 'Hair Color / Highlights (කලර් කිරීම)', price: 4500, duration: 60 },
-        { id: 4, name: 'Facial & Cleanup (ෆේෂල්)', price: 3500, duration: 45 },
-        { id: 5, name: 'Tattoo Design & Inking (ටැටූ කිරීම)', price: 5000, duration: 90 },
-        { id: 6, name: 'Hair Wash & Blowdry', price: 1200, duration: 25 },
-        { id: 7, name: 'Keratin / Straightening Treatment', price: 12000, duration: 180 }
-      ],
-      staff: [
-        { id: 1, name: 'Sahan Anusha (Master Stylist / Tattoo)', sharePct: 50 },
-        { id: 2, name: 'Senior Stylist 02', sharePct: 50 }
-      ],
-      appointments: [],
-      transactions: [],
-      closedDays: []
-    };
-  }
-
-  const saveDB = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(DB)); } catch(e){} };
-
-  const getService = id => DB.services.find(s => s.id == id);
-  const getStaff = id => DB.staff.find(s => s.id == id);
-  const getTodayStr = () => formatDate(new Date());
-  const isDayClosed = dateStr => DB.closedDays.some(d => d.date === dateStr);
-
-  let state = {
-    view: location.hash === '#staff' ? 'login' : 'book',
-    bookingStep: 1,
-    adminTab: 'appts',
-    selectedDate: getTodayStr(),
-    financeDate: getTodayStr(),
-    modal: null,
-    loginErr: ''
-  };
-
-  let bookingForm = { serviceId: null, staffId: 'any', date: getTodayStr(), time: null, name: '', phone: '', note: '' };
-  let lastConfirmedBooking = null;
-  let isAuthenticated = false;
-
-  try { isAuthenticated = sessionStorage.getItem('felix_auth') === '1'; } catch(e){}
-
-  function showToast(text) {
-    const t = $('toast');
-    t.textContent = text;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
-  }
-
-  function checkStaffFree(date, timeStr, duration, staffId) {
-    const startMins = toMinutes(timeStr);
-    const endMins = startMins + duration + DB.salon.bufferMins;
-    const candidates = staffId && staffId !== 'any' ? DB.staff.filter(s => s.id == staffId) : DB.staff;
-
-    return candidates.find(member => {
-      const busy = DB.appointments.some(a => {
-        if (a.staffId != member.id || a.date !== date || a.status === 'cancelled' || a.status === 'noshow') return false;
-        const aSvc = getService(a.serviceId);
-        const aStart = toMinutes(a.time);
-        const aEnd = aStart + (aSvc ? aSvc.duration : 30) + DB.salon.bufferMins;
-        return startMins < aEnd && aStart < endMins;
+    salonData.forEach((cat, cIdx) => {
+      let subHtml = '';
+      cat.subs.forEach(s => {
+        subHtml += `
+          <div class="sub-item">
+            <span class="sub-name">${s.name}</span>
+            <span class="price-tag">Rs. ${s.price}</span>
+          </div>
+        `;
+        select.innerHTML += `<option value="${s.name} (Rs.${s.price})">${cat.category} - ${s.name} (Rs.${s.price})</option>`;
       });
-      return !busy;
-    });
-  }
 
-  function getAvailableSlots(date, duration, staffId) {
-    const slots = [];
-    const now = new Date();
-    const currentMins = now.getHours() * 60 + now.getMinutes();
-
-    for (let m = DB.salon.openHour * 60; m + duration <= DB.salon.closeHour * 60; m += 30) {
-      const timeStr = toTimeString(m);
-      const isPast = (date === getTodayStr() && m <= currentMins);
-      const availableStaff = !isPast && checkStaffFree(date, timeStr, duration, staffId);
-      slots.push({ time: timeStr, available: !!availableStaff });
-    }
-    return slots;
-  }
-
-  function render() {
-    if (state.view === 'admin' && !isAuthenticated) state.view = 'login';
-    const app = $('app');
-    if (state.view === 'book') app.innerHTML = renderBookingPortal();
-    else if (state.view === 'login') app.innerHTML = renderLogin();
-    else if (state.view === 'admin') app.innerHTML = renderAdminDashboard();
-    window.scrollTo(0, 0);
-  }
-
-  // 1. CUSTOMER BOOKING PORTAL
-  function renderBookingPortal() {
-    const salon = DB.salon;
-    let html = `
-      <div class="brand-header">
-        <div class="logo-wrapper">
-          <img src="${APP_LOGO_IMAGE}" alt="Salon Felix Logo" class="brand-logo" onerror="this.src='https://via.placeholder.com/150/0d0d15/d4af37?text=FELIX'">
-        </div>
-        <div class="brand-badge">✦ ${escapeHTML(salon.name)} ✦</div>
-        <h1>Salon FELIX</h1>
-        <p class="subtext">${escapeHTML(salon.tagline)}</p>
-        <p class="subtext" style="color: var(--gold); margin-top:4px;">📞 ${escapeHTML(salon.phone)}</p>
-      </div>
-    `;
-
-    if (state.bookingStep === 1) {
-      html += `<h2>1. සේවාව තෝරන්න (Select Service)</h2>`;
-      html += DB.services.map(svc => `
-        <div class="card clickable row" onclick="selectService(${svc.id})">
-          <div>
-            <b style="font-size: 15px;">${escapeHTML(svc.name)}</b>
-            <div class="subtext" style="font-size: 12px; margin-top: 2px;">ගතවන කාලය: ${svc.duration} mins</div>
-          </div>
-          <div style="font-size: 15px; font-weight: 800; color: var(--gold);">${formatLKR(svc.price)}</div>
-        </div>
-      `).join('');
-    }
-    else if (state.bookingStep === 2) {
-      const svc = getService(bookingForm.serviceId);
-      const days = [...Array(14)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
-
-      html += `
-        <h2>2. දිනය සහ වේලාව තෝරන්න</h2>
-        <div class="card" style="margin-bottom: 14px;">
-          <b>${escapeHTML(svc.name)}</b>
-          <div class="subtext">${svc.duration} mins · ${formatLKR(svc.price)}</div>
-        </div>
-
-        <label>Stylist / Artist</label>
-        <div class="chip-scroll">
-          <div class="chip ${bookingForm.staffId === 'any' ? 'selected' : ''}" onclick="bookingForm.staffId='any'; bookingForm.time=null; render();">ඕනෑම අයෙක් (Any)</div>
-          ${DB.staff.map(st => `
-            <div class="chip ${bookingForm.staffId == st.id ? 'selected' : ''}" onclick="bookingForm.staffId=${st.id}; bookingForm.time=null; render();">
-              ${escapeHTML(st.name)}
-            </div>
-          `).join('')}
-        </div>
-
-        <label style="margin-top: 12px;">දිනය තෝරන්න (Select Date)</label>
-        <div class="chip-scroll">
-          ${days.map(d => {
-            const dStr = formatDate(d);
-            const dayName = d.toLocaleDateString('en', { weekday: 'short' });
-            return `
-              <div class="chip ${bookingForm.date === dStr ? 'selected' : ''}" onclick="bookingForm.date='${dStr}'; bookingForm.time=null; render();">
-                <div style="font-size: 10px; text-transform: uppercase;">${dayName}</div>
-                <div style="font-size: 15px; font-weight: 800;">${d.getDate()}</div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-
-        <label style="margin-top: 12px;">ලබාගත හැකි වේලාවන් (Available Slots)</label>
-        <div class="time-grid">
-          ${getAvailableSlots(bookingForm.date, svc.duration, bookingForm.staffId).map(s => `
-            <div class="chip ${!s.available ? 'disabled' : ''} ${bookingForm.time === s.time ? 'selected' : ''}" 
-                 onclick="bookingForm.time='${s.time}'; render();">
-              ${format12H(s.time)}
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="row" style="margin-top: 18px;">
-          <button class="btn btn-secondary btn-sm" style="padding:12px 18px;" onclick="state.bookingStep=1; render();">Back</button>
-          <button class="btn" onclick="proceedToDetails()">Continue</button>
-        </div>
-      `;
-    }
-    else if (state.bookingStep === 3) {
-      const svc = getService(bookingForm.serviceId);
-      html += `
-        <h2>3. ඔබේ විස්තර ඇතුළත් කරන්න</h2>
-        <div class="card" style="margin-bottom: 14px;">
-          <b>${escapeHTML(svc.name)}</b>
-          <div class="subtext">${bookingForm.date} at ${format12H(bookingForm.time)} · ${formatLKR(svc.price)}</div>
-        </div>
-
-        <label>ඔබේ නම (Your Name)</label>
-        <input class="input-field" id="custName" placeholder="උදා: කසුන් පෙරේරා" value="${escapeHTML(bookingForm.name)}">
-
-        <label>දුරකථන අංකය (WhatsApp / Mobile)</label>
-        <input class="input-field" id="custPhone" type="tel" placeholder="උදා: 0703191313" value="${escapeHTML(bookingForm.phone)}">
-
-        <label>විශේෂ සටහන් (Notes / Tattoo idea...)</label>
-        <input class="input-field" id="custNote" placeholder="Hair style / requests..." value="${escapeHTML(bookingForm.note)}">
-
-        <div class="row" style="margin-top: 10px;">
-          <button class="btn btn-secondary btn-sm" style="padding:12px 18px;" onclick="state.bookingStep=2; render();">Back</button>
-          <button class="btn" onclick="confirmBooking()">Confirm Appointment</button>
-        </div>
-      `;
-    }
-    else if (state.bookingStep === 4 && lastConfirmedBooking) {
-      const svc = getService(lastConfirmedBooking.serviceId);
-      const staffMember = getStaff(lastConfirmedBooking.staffId);
-
-      html += `
-        <div class="card" style="text-align: center; padding: 26px 16px; margin-top: 15px;">
-          <div style="font-size: 44px; margin-bottom: 8px;">✨</div>
-          <h2 style="justify-content: center; margin: 0 0 6px;">ඇපොයිමන්ට් එක වෙන්වුනා!</h2>
-          <p class="subtext" style="margin-bottom: 16px;">
-            ස්තූතියි <b>${escapeHTML(lastConfirmedBooking.name)}</b>!<br>
-            <b>${escapeHTML(svc.name)}</b> සේවාව සඳහා<br>
-            <span style="color: var(--text); font-weight: 700;">${lastConfirmedBooking.date} දින ${format12H(lastConfirmedBooking.time)}</span> ට
-            ${staffMember ? ` (${escapeHTML(staffMember.name)} සමඟ)` : ''} වේලාව වෙන් කර ඇත.
-          </p>
-          
-          <div class="qr-container">
-            <img src="${APP_LOGO_IMAGE}" alt="Salon Felix Branding" style="width:140px; height:140px; object-fit:cover; border-radius:50%;">
-            <p style="font-size: 11px; color: #333; margin-top: 8px; font-weight: 800;">Salon FELIX UNISEX</p>
-          </div>
-
-          <button class="btn btn-whatsapp" onclick="sendWhatsAppConfirmation()">
-            📱 WhatsApp හරහා Salon එකට විස්තර යවන්න
-          </button>
-          <button class="btn btn-secondary" style="margin-top: 10px;" onclick="resetBookingPortal()">
-            තවත් ඇපොයිමන්ට් එකක් දමන්න
-          </button>
-        </div>
-      `;
-    }
-
-    html += `<div class="footer-link">Salon Owner / Admin ද? <a onclick="state.view='login'; render();">මෙහි ක්ලික් කරන්න</a></div>`;
-    return html;
-  }
-
-  function selectService(id) { bookingForm.serviceId = id; bookingForm.time = null; state.bookingStep = 2; render(); }
-  function proceedToDetails() { if (!bookingForm.time) return showToast('කරුණාකර වේලාවක් (Time Slot) තෝරන්න.'); state.bookingStep = 3; render(); }
-
-  function confirmBooking() {
-    bookingForm.name = $('custName').value.trim();
-    bookingForm.phone = $('custPhone').value.replace(/[\s-]/g, '');
-    bookingForm.note = $('custNote').value.trim();
-
-    if (bookingForm.name.length < 2) return showToast('කරුණාකර ඔබේ නම ඇතුළත් කරන්න.');
-    if (!/^(\+?94|0)?7\d{8}$/.test(bookingForm.phone)) return showToast('වලංගු දුරකථන අංකයක් දෙන්න.');
-
-    const svc = getService(bookingForm.serviceId);
-    const assignedStaff = checkStaffFree(bookingForm.date, bookingForm.time, svc.duration, bookingForm.staffId);
-
-    if (!assignedStaff) {
-      showToast('තෝරාගත් වෙලාව වෙනත් අයෙකු වෙන් කර ඇත! වෙනත් වෙලාවක් තෝරන්න.');
-      state.bookingStep = 2;
-      return render();
-    }
-
-    lastConfirmedBooking = {
-      id: Date.now(), name: bookingForm.name, phone: bookingForm.phone, serviceId: bookingForm.serviceId, staffId: assignedStaff.id, date: bookingForm.date, time: bookingForm.time, note: bookingForm.note, status: 'pending', source: 'online'
-    };
-
-    DB.appointments.push(lastConfirmedBooking);
-    saveDB();
-    state.bookingStep = 4;
-    render();
-  }
-
-  function sendWhatsAppConfirmation() {
-    const svc = getService(lastConfirmedBooking.serviceId);
-    const st = getStaff(lastConfirmedBooking.staffId);
-    const text = `Hello ${DB.salon.name}!\nI want to confirm my appointment:\n\n` +
-      `📌 *Service:* ${svc.name} (${formatLKR(svc.price)})\n` +
-      `📅 *Date & Time:* ${lastConfirmedBooking.date} at ${format12H(lastConfirmedBooking.time)}\n` +
-      `✂️ *Stylist:* ${st ? st.name : 'Any'}\n` +
-      `👤 *Client:* ${lastConfirmedBooking.name}\n` +
-      `📞 *Phone:* ${lastConfirmedBooking.phone}` +
-      (lastConfirmedBooking.note ? `\n📝 *Note:* ${lastConfirmedBooking.note}` : '');
-
-    window.open(`https://wa.me/${DB.salon.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
-  }
-
-  function resetBookingPortal() {
-    bookingForm = { serviceId: null, staffId: 'any', date: getTodayStr(), time: null, name: '', phone: '', note: '' };
-    state.bookingStep = 1;
-    render();
-  }
-
-  // 2. LOGIN VIEW
-  function renderLogin() {
-    return `
-      <div style="padding: 30px 0 20px; text-align: center;">
-        <div class="logo-wrapper" style="width: 80px; height: 80px;">
-          <img src="${APP_LOGO_IMAGE}" alt="Salon Felix Logo" class="brand-logo">
-        </div>
-        <h1>Owner / Admin Login</h1>
-        <p class="subtext">මූල්‍ය හා ඇපොයිමන්ට් පාලනය සඳහා මුරපදය (Password) දෙන්න.</p>
-      </div>
-
-      <div class="card">
-        <label>Password (මුරපදය)</label>
-        <input class="input-field" id="loginPw" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter') executeLogin()">
-        <div style="color: var(--danger); font-size: 13px; min-height: 20px; margin-bottom: 8px;">${state.loginErr}</div>
-        <button class="btn" onclick="executeLogin()">Access Dashboard</button>
-      </div>
-
-      <button class="btn btn-secondary" style="margin-top: 10px;" onclick="state.view='book'; state.loginErr=''; render();">
-        ← ආපසු Booking පිටුවට
-      </button>
-    `;
-  }
-
-  async function executeLogin() {
-    if (!DB.passwordHash) DB.passwordHash = await sha256('sahan@flix');
-    const inputHash = await sha256($('loginPw').value);
-
-    if (inputHash === DB.passwordHash) {
-      isAuthenticated = true;
-      try { sessionStorage.setItem('felix_auth', '1'); } catch(e){}
-      state.view = 'admin';
-      state.loginErr = '';
-      saveDB();
-      render();
-    } else {
-      state.loginErr = 'වැරදි මුරපදයකි. නැවත උත්සාහ කරන්න.';
-      render();
-    }
-  }
-
-  function executeLogout() {
-    isAuthenticated = false;
-    try { sessionStorage.removeItem('felix_auth'); } catch(e){}
-    state.view = 'book';
-    render();
-  }
-
-  // 3. OWNER ADMIN DASHBOARD
-  function renderAdminDashboard() {
-    let html = `
-      <div class="row" style="padding-top: 10px;">
-        <div class="row" style="gap:10px;">
-          <img src="${APP_LOGO_IMAGE}" style="width:40px; height:40px; border-radius:50%; border:1px solid var(--gold);">
-          <div>
-            <div class="brand-badge" style="margin:0;">ADMIN DASHBOARD</div>
-            <b style="font-size: 16px; display:block;">${escapeHTML(DB.salon.name)}</b>
-          </div>
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="executeLogout()">Logout</button>
-      </div>
-
-      <div class="nav-tabs">
-        <div class="nav-tab ${state.adminTab === 'appts' ? 'active' : ''}" onclick="state.adminTab='appts'; render();">ඇපොයිමන්ට්</div>
-        <div class="nav-tab ${state.adminTab === 'completed' ? 'active' : ''}" onclick="state.adminTab='completed'; render();">අවසන් කළ</div>
-        <div class="nav-tab ${state.adminTab === 'finance' ? 'active' : ''}" onclick="state.adminTab='finance'; render();">50/50 බෙදීම</div>
-        <div class="nav-tab ${state.adminTab === 'share' ? 'active' : ''}" onclick="state.adminTab='share'; render();">Links / QR</div>
-        <div class="nav-tab ${state.adminTab === 'settings' ? 'active' : ''}" onclick="state.adminTab='settings'; render();">Settings</div>
-      </div>
-    `;
-
-    if (state.adminTab === 'appts') html += renderApptsTab(false);
-    else if (state.adminTab === 'completed') html += renderApptsTab(true);
-    else if (state.adminTab === 'finance') html += renderFinanceTab();
-    else if (state.adminTab === 'share') html += renderShareTab();
-    else if (state.adminTab === 'settings') html += renderSettingsTab();
-
-    if (state.modal) html += renderModal();
-    return html;
-  }
-
-  function renderApptsTab(isCompletedView) {
-    const allForDate = DB.appointments.filter(a => a.date === state.selectedDate);
-    const filteredAppts = allForDate.filter(a => isCompletedView ? a.status === 'done' : a.status !== 'done')
-                                    .sort((a, b) => a.time.localeCompare(b.time));
-
-    const dayCompletedTx = DB.transactions.filter(t => t.date === state.selectedDate);
-    const dayEarnings = dayCompletedTx.reduce((sum, t) => sum + (t.amount - t.discount), 0);
-
-    return `
-      <div class="row">
-        <input class="input-field" type="date" value="${state.selectedDate}" onchange="state.selectedDate=this.value; render();" style="margin-bottom:0;">
-        <button class="btn btn-sm" onclick="state.modal={type:'add_appt'}; render();">+ Walk-in / Call</button>
-      </div>
-
-      <div class="grid-2" style="margin-top: 10px;">
-        <div class="card">
-          <div class="subtext">${isCompletedView ? 'Completed Appts' : 'Active Appts'}</div>
-          <div style="font-size: 22px; font-weight: 800;">${filteredAppts.length}</div>
-        </div>
-        <div class="card">
-          <div class="subtext">දවසේ එකතු වූ මුදල</div>
-          <div style="font-size: 22px; font-weight: 800; color: var(--success);">${formatLKR(dayEarnings)}</div>
-        </div>
-      </div>
-
-      <h2>${isCompletedView ? 'අවසන් කළ ඇපොයිමන්ට්' : 'සක්‍රීය ඇපොයිමන්ට්'} (${state.selectedDate})</h2>
-      ${filteredAppts.length === 0 ? `<div class="card subtext" style="text-align:center;">මෙම දිනයේ ${isCompletedView ? 'අවසන් කළ' : 'සක්‍රීය'} ඇපොයිමන්ට් නොමැත.</div>` : ''}
-
-      ${filteredAppts.map(a => {
-        const svc = getService(a.serviceId) || { name: 'Custom Service', price: 0 };
-        const st = getStaff(a.staffId);
-        const cleanPhone = a.phone.replace(/^0/, '94').replace(/^\+/, '');
-
-        return `
-          <div class="card">
-            <div class="row">
-              <b>${format12H(a.time)} —${escapeHTML(a.name)}</b>
-              <span class="badge badge-${a.status}">${a.status}</span>
-            </div>
-            <div class="subtext" style="margin: 6px 0 10px;">
-              ✂️ ${escapeHTML(svc.name)} · 💰 ${formatLKR(svc.price)} · 👤 ${st ? escapeHTML(st.name) : 'Unassigned'}
-              ${a.note ? `<br>📝 ${escapeHTML(a.note)}` : ''}
-            </div>
-            <div class="row row-wrap" style="justify-content: flex-start; gap: 6px;">
-              <a class="btn btn-secondary btn-sm" href="tel:${escapeHTML(a.phone)}" style="text-decoration:none;">Call</a>
-              <a class="btn btn-secondary btn-sm" target="_blank" href="https://wa.me/${escapeHTML(cleanPhone)}" style="text-decoration:none;">WhatsApp</a>
-              
-              ${a.status === 'pending' ? `<button class="btn btn-sm" onclick="updateApptStatus(${a.id}, 'confirmed')">Confirm</button>` : ''}
-              ${(a.status === 'pending' || a.status === 'confirmed') ? `
-                <button class="btn btn-sm btn-success" onclick="state.modal={type:'checkout', apptId:${a.id}}; render();">Complete & Cash Out</button>
-                <button class="btn btn-sm btn-secondary" onclick="updateApptStatus(${a.id}, 'noshow')">No-Show</button>
-                <button class="btn btn-sm btn-danger" onclick="updateApptStatus(${a.id}, 'cancelled')">Cancel</button>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }).join('')}
-    `;
-  }
-
-  function updateApptStatus(id, status) {
-    const a = DB.appointments.find(x => x.id === id);
-    if (a) { a.status = status; saveDB(); render(); }
-  }
-
-  function calcFinance(dateStr) {
-    const summary = { count: 0, gross: 0, discount: 0, tips: 0, ownerShare: 0, staffShare: 0, methods: {}, staffBreakdown: {} };
-    const txs = DB.transactions.filter(t => t.date === dateStr);
-
-    txs.forEach(t => {
-      const netService = t.amount - t.discount;
-      const sShare = netService * (t.sharePct / 100);
-      const oShare = netService - sShare;
-
-      summary.count++;
-      summary.gross += netService;
-      summary.discount += t.discount;
-      summary.tips += t.tip;
-      summary.ownerShare += oShare;
-      summary.staffShare += sShare;
-
-      summary.methods[t.method] = (summary.methods[t.method] || 0) + netService + t.tip;
-
-      if (!summary.staffBreakdown[t.staffId]) {
-        summary.staffBreakdown[t.staffId] = { share: 0, tips: 0, count: 0 };
-      }
-      summary.staffBreakdown[t.staffId].share += sShare;
-      summary.staffBreakdown[t.staffId].tips += t.tip;
-      summary.staffBreakdown[t.staffId].count++;
-    });
-
-    return summary;
-  }
-
-  function renderFinanceTab() {
-    const fin = calcFinance(state.financeDate);
-    const closed = isDayClosed(state.financeDate);
-
-    return `
-      <div class="row">
-        <input class="input-field" type="date" value="${state.financeDate}" onchange="state.financeDate=this.value; render();" style="margin-bottom:0;">
-        ${closed ? '<span class="badge badge-done">Day Locked 🔒</span>' : ''}
-      </div>
-
-      <div class="grid-2" style="margin-top: 12px;">
-        <div class="card">
-          <div class="subtext">එකතු වූ මුළු මුදල (Gross)</div>
-          <div style="font-size: 20px; font-weight: 800;">${formatLKR(fin.gross)}</div>
-        </div>
-        <div class="card">
-          <div class="subtext">Tips (100% සේවකයාට)</div>
-          <div style="font-size: 20px; font-weight: 800; color: var(--success);">${formatLKR(fin.tips)}</div>
-        </div>
-        <div class="card">
-          <div class="subtext">අයිතිකරුගේ පංගුව (50%)</div>
-          <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatLKR(fin.ownerShare)}</div>
-        </div>
-        <div class="card">
-          <div class="subtext">සේවකයාගේ පංගුව (50%)</div>
-          <div style="font-size: 20px; font-weight: 800; color: var(--secondary);">${formatLKR(fin.staffShare)}</div>
-        </div>
-      </div>
-
-      <h2>හවසට සේවකයාට දිය යුතු මුදල (Payouts)</h2>
-      ${Object.keys(fin.staffBreakdown).length === 0 ? '<div class="card subtext">මෙම දිනයේ තවමත් කිසිදු ගෙවීමක් සටහන් වී නැත.</div>' : ''}
-      ${Object.entries(fin.staffBreakdown).map(([staffId, data]) => {
-        const st = getStaff(staffId);
-        return `
-          <div class="card row">
+      container.innerHTML += `
+        <div class="category-card" id="card-${cIdx}" onclick="toggleCat(${cIdx})">
+          <div class="category-header">
             <div>
-              <b>${escapeHTML(st ? st.name : 'Unknown')}</b>
-              <div class="subtext">${data.count} services · Share: ${formatLKR(data.share)} + Tips:${formatLKR(data.tips)}</div>
+              <div class="category-title">${cat.category}</div>
+              <div class="category-desc">${cat.desc}</div>
             </div>
-            <b style="font-size: 16px; color: var(--success);">${formatLKR(data.share + data.tips)}</b>
+            <span class="arrow-icon">▼</span>
           </div>
-        `;
-      }).join('')}
-
-      <h2>ගෙවීම් ක්‍රම (Payment Methods)</h2>
-      <div class="card">
-        ${Object.keys(fin.methods).length === 0 ? '<div class="subtext">වෙනත් විස්තර නොමැත.</div>' : ''}
-        ${Object.entries(fin.methods).map(([method, total]) => `
-          <div class="row" style="padding: 4px 0;">
-            <span class="subtext">${escapeHTML(method)}</span>
-            <b>${formatLKR(total)}</b>
-          </div>
-        `).join('')}
-      </div>
-
-      ${!closed ? `<button class="btn" onclick="settleAndCloseDay()">🔒 Lock & End Day Ledger</button>` : ''}
-    `;
-  }
-
-  function settleAndCloseDay() {
-    const fin = calcFinance(state.financeDate);
-    if (fin.count === 0) return showToast('ගෙවීම් සටහන් නොමැතිව Lock කළ නොහැක.');
-    if (!confirm(`${state.financeDate} දින මූල්‍ය ගිණුම් සටහන් තහවුරු කර Lock කරන්නද?`)) return;
-
-    DB.closedDays.push({
-      date: state.financeDate,
-      totalRevenue: fin.gross,
-      ownerTotal: fin.ownerShare,
-      staffTotal: fin.staffShare + fin.tips
-    });
-
-    saveDB();
-    render();
-    showToast('දවසේ ගිණුම් සාර්ථකව Lock කරන ලදී!');
-  }
-
-  // TAB 4: SOCIAL MEDIA SHARE & BRAND HELPER
-  function renderShareTab() {
-    const currentUrl = window.location.href.split('#')[0];
-    const promoText = `✨ ${DB.salon.name} ✨\n${DB.salon.tagline}\n\nදැන් ඔබ සිටින තැන සිටම පහසුවෙන්ම අපගේ Salon එකෙන් වේලාවක් වෙන්කර ගන්න (Book Online).\n\n👇 පහත Link එක මගින් Booking එක දමන්න:\n${currentUrl}\n\n📞 Call/WhatsApp: ${DB.salon.phone}`;
-
-    return `
-      <h2>Social Media Promo & Booking Link</h2>
-      <p class="subtext" style="margin-bottom: 12px;">TikTok, Facebook, Instagram & WhatsApp හරහා පාරිභෝගිකයින්ට Booking Link එක යවන්න.</p>
-
-      <div class="card" style="text-align:center;">
-        <label>Your Official Salon Branding</label>
-        <div class="logo-wrapper" style="margin-top:10px;">
-          <img src="${APP_LOGO_IMAGE}" alt="Salon Logo" class="brand-logo">
-        </div>
-        <b>${escapeHTML(DB.salon.name)}</b>
-        <p class="subtext">${escapeHTML(DB.salon.tagline)}</p>
-      </div>
-
-      <div class="card">
-        <label>Your Web App Link</label>
-        <input class="input-field" readonly value="${currentUrl}">
-        <button class="btn btn-sm" onclick="navigator.clipboard.writeText('${currentUrl}'); showToast('Link Copied to Clipboard!');">Copy Link</button>
-      </div>
-
-      <div class="card">
-        <label>Ready-made Social Promo Post</label>
-        <textarea class="input-field" rows="5" style="resize:none;" readonly>${promoText}</textarea>
-        <button class="btn btn-whatsapp" onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(\`${promoText}\`), '_blank');">Share on WhatsApp</button>
-      </div>
-    `;
-  }
-
-  // TAB 5: SETTINGS
-  function renderSettingsTab() {
-    return `
-      <div class="card">
-        <h2>Salon Info Config</h2>
-        <label>Salon Name</label>
-        <input class="input-field" value="${escapeHTML(DB.salon.name)}" onchange="DB.salon.name=this.value; saveDB();">
-        <label>Tagline / Subtitle</label>
-        <input class="input-field" value="${escapeHTML(DB.salon.tagline)}" onchange="DB.salon.tagline=this.value; saveDB();">
-        <label>WhatsApp Number (e.g. 94703191313)</label>
-        <input class="input-field" value="${escapeHTML(DB.salon.whatsapp)}" onchange="DB.salon.whatsapp=this.value.replace(/\\D/g,''); saveDB();">
-        
-        <div class="grid-2">
-          <div>
-            <label>Open Hour (24h)</label>
-            <input class="input-field" type="number" min="0" max="23" value="${DB.salon.openHour}" onchange="DB.salon.openHour=+this.value; saveDB();">
-          </div>
-          <div>
-            <label>Close Hour (24h)</label>
-            <input class="input-field" type="number" min="1" max="24" value="${DB.salon.closeHour}" onchange="DB.salon.closeHour=+this.value; saveDB();">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Stylists & Revenue Share %</h2>
-        ${DB.staff.map(st => `
-          <div class="row" style="margin-bottom: 8px;">
-            <input class="input-field" value="${escapeHTML(st.name)}" onchange="getStaff(${st.id}).name=this.value; saveDB();" style="margin-bottom:0;">
-            <input class="input-field" type="number" style="width: 80px; margin-bottom:0;" value="${st.sharePct}" onchange="getStaff(${st.id}).sharePct=+this.value; saveDB();">
-            <button class="btn btn-danger btn-sm" onclick="removeStaff(${st.id})">✕</button>
-          </div>
-        `).join('')}
-        <button class="btn btn-secondary btn-sm" onclick="DB.staff.push({id:Date.now(), name:'New Stylist', sharePct:50}); saveDB(); render();">+ Add Stylist</button>
-      </div>
-
-      <div class="card">
-        <h2>Services Catalog</h2>
-        ${DB.services.map(svc => `
-          <div class="row" style="margin-bottom: 8px;">
-            <input class="input-field" value="${escapeHTML(svc.name)}" onchange="getService(${svc.id}).name=this.value; saveDB();" style="margin-bottom:0;">
-            <input class="input-field" type="number" style="width: 90px; margin-bottom:0;" value="${svc.price}" onchange="getService(${svc.id}).price=+this.value; saveDB();">
-            <input class="input-field" type="number" style="width: 70px; margin-bottom:0;" value="${svc.duration}" onchange="getService(${svc.id}).duration=+this.value; saveDB();">
-            <button class="btn btn-danger btn-sm" onclick="removeService(${svc.id})">✕</button>
-          </div>
-        `).join('')}
-        <button class="btn btn-secondary btn-sm" onclick="DB.services.push({id:Date.now(), name:'New Service', price:1000, duration:30}); saveDB(); render();">+ Add Service</button>
-      </div>
-
-      <div class="card">
-        <h2>Change Password</h2>
-        <input class="input-field" id="oldPw" type="password" placeholder="Current Password">
-        <input class="input-field" id="newPw" type="password" placeholder="New Password (min 6 characters)">
-        <button class="btn" onclick="updatePassword()">Update Password</button>
-      </div>
-    `;
-  }
-
-  function removeStaff(id) {
-    if (DB.staff.length <= 1) return showToast('අවම වශයෙන් එක් සේවකයෙකු හෝ සිටිය යුතුය.');
-    DB.staff = DB.staff.filter(s => s.id !== id);
-    saveDB();
-    render();
-  }
-
-  function removeService(id) {
-    DB.services = DB.services.filter(s => s.id !== id);
-    saveDB();
-    render();
-  }
-
-  async function updatePassword() {
-    const currentInput = await sha256($('oldPw').value);
-    if (currentInput !== DB.passwordHash) return showToast('පැරණි මුරපදය වැරදිය.');
-    if ($('newPw').value.length < 6) return showToast('අලුත් මුරපදයට අවම වශයෙන් අකුරු 6ක්වත් තිබිය යුතුය.');
-
-    DB.passwordHash = await sha256($('newPw').value);
-    saveDB();
-    showToast('මුරපදය සාර්ථකව වෙනස් කරන ලදී!');
-    $('oldPw').value =$('newPw').value = '';
-  }
-
-  // MODALS
-  function renderModal() {
-    const m = state.modal;
-
-    if (m.type === 'add_appt') {
-      return `
-        <div class="modal-overlay" onclick="if(event.target===this){state.modal=null; render();}">
-          <div class="modal-content">
-            <h2>Manual Walk-in / Call Booking</h2>
-            <label>Customer Name</label>
-            <input class="input-field" id="m_name">
-            <label>Phone Number</label>
-            <input class="input-field" id="m_phone" type="tel">
-            
-            <label>Service</label>
-            <select class="input-field" id="m_svc">
-              ${DB.services.map(s => `<option value="${s.id}">${escapeHTML(s.name)} —${formatLKR(s.price)}</option>`).join('')}
-            </select>
-
-            <label>Stylist</label>
-            <select class="input-field" id="m_staff">
-              ${DB.staff.map(st => `<option value="${st.id}">${escapeHTML(st.name)}</option>`).join('')}
-            </select>
-
-            <div class="grid-2">
-              <div>
-                <label>Date</label>
-                <input class="input-field" type="date" id="m_date" value="${state.selectedDate}">
-              </div>
-              <div>
-                <label>Time</label>
-                <input class="input-field" type="time" id="m_time" value="10:00">
-              </div>
-            </div>
-
-            <button class="btn" onclick="saveManualBooking()">Save Appointment</button>
+          <div class="sub-services">
+            ${subHtml}
           </div>
         </div>
       `;
+    });
+  }
+
+  function toggleCat(idx) {
+    const card = document.getElementById(`card-${idx}`);
+    card.classList.toggle('active');
+  }
+
+  function openBookingModal() {
+    document.getElementById('bookingModal').style.display = 'flex';
+  }
+
+  function openAdminModal() {
+    document.getElementById('adminModal').style.display = 'flex';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function sendWhatsApp() {
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const service = document.getElementById('serviceSelect').value;
+    const date = document.getElementById('bookDate').value;
+    const time = document.getElementById('bookTime').value;
+
+    if(!name || !phone || !date || !time) {
+      alert('කරුණාකර සියලු විස්තර ඇතුළත් කරන්න.');
+      return;
     }
 
-    if (m.type === 'checkout') {
-      const appt = DB.appointments.find(a => a.id === m.apptId);
-      const svc = getService(appt.serviceId) || { name: 'Service', price: 0 };
-      const st = getStaff(appt.staffId);
+    const msg = `Hello Salon FELIX, Mama Booking ekak danna kamathi.%0A%0AName: ${name}%0APhone: ${phone}%0AService: ${service}%0ADate: ${date}%0ATime: ${time}`;
+    window.open(`https://wa.me/94703191313?text=${msg}`, '_blank');
+  }
 
-      return `
-        <div class="modal-overlay" onclick="if(event.target===this){state.modal=null; render();}">
-          <div class="modal-content">
-            <h2>Complete & Cash Out</h2>
-            <div class="subtext" style="margin-bottom: 12px;">
-              ${escapeHTML(appt.name)} · ${escapeHTML(svc.name)} · ${st ? escapeHTML(st.name) : 'Unassigned'}
-            </div>
-
-            <label>ලබාගත් මුදල (Service Amount Rs.)</label>
-            <input class="input-field" id="p_amt" type="number" value="${svc.price}">
-
-            <label>ඩිස්කවුන්ට් (Discount Rs.)</label>
-            <input class="input-field" id="p_disc" type="number" value="0">
-
-            <label>ටැක්සි / Tip (100% සේවකයාට)</label>
-            <input class="input-field" id="p_tip" type="number" value="0">
-
-            <label>ගෙවූ ක්‍රමය (Payment Method)</label>
-            <select class="input-field" id="p_method">
-              <option>Cash (මුදලින්)</option>
-              <option>LankaQR / QR Scan</option>
-              <option>Card Payment</option>
-              <option>Bank Transfer</option>
-            </select>
-
-            <button class="btn btn-success" onclick="processCheckout(${appt.id})">Record Payment & Finish</button>
-          </div>
-        </div>
-      `;
+  function loginAdmin() {
+    const pass = document.getElementById('adminPass').value;
+    if(pass === 'sahan@flix') {
+      document.getElementById('adminPanel').style.display = 'block';
+      alert('Login Successful!');
+    } else {
+      alert('වැරදි Password එකක්!');
     }
-    return '';
   }
 
-  function saveManualBooking() {
-    const name = $('m_name').value.trim();
-    const phone = $('m_phone').value.trim();
-    const serviceId = +$('m_svc').value;
-    const staffId = +$('m_staff').value;
-    const date = $('m_date').value;
-    const time = $('m_time').value;
+  function addCustomService() {
+    const name = document.getElementById('newSubName').value;
+    const price = document.getElementById('newSubPrice').value;
+    const catIdx = document.getElementById('catSelect').value;
 
-    if (!name || !date || !time) return showToast('සියලුම තොරතුරු ඇතුළත් කරන්න.');
-    if (isDayClosed(date)) return showToast('මෙම දිනයේ ගිණුම් Lock කර ඇත.');
-
-    DB.appointments.push({
-      id: Date.now(), name, phone: phone || 'N/A', serviceId, staffId, date, time, note: 'Manual Walk-in', status: 'confirmed', source: 'walkin'
-    });
-
-    saveDB();
-    state.modal = null;
-    state.selectedDate = date;
-    render();
-    showToast('ඇපොයිමන්ට් එක සටහන් විය!');
+    if(name && price) {
+      salonData[catIdx].subs.push({ name: name, price: parseInt(price) });
+      localStorage.setItem('felix_services', JSON.stringify(salonData));
+      renderServices();
+      alert('අලුත් Service එක එකතු කෙරිණි!');
+      document.getElementById('newSubName').value = '';
+      document.getElementById('newSubPrice').value = '';
+    }
   }
 
-  function processCheckout(apptId) {
-    const appt = DB.appointments.find(a => a.id === apptId);
-    if (isDayClosed(appt.date)) return showToast('Lock කරන ලද දිනවල ගෙවීම් එකතු කළ නොහැක.');
-
-    const amount = +$('p_amt').value || 0;
-    const discount = +$('p_disc').value || 0;
-    const tip = +$('p_tip').value || 0;
-    const method = $('p_method').value;
-
-    const st = getStaff(appt.staffId);
-
-    DB.transactions.push({
-      id: Date.now(),
-      apptId: appt.id,
-      date: appt.date,
-      staffId: appt.staffId,
-      sharePct: st ? st.sharePct : 50,
-      amount,
-      discount,
-      tip,
-      method
-    });
-
-    appt.status = 'done';
-    saveDB();
-    state.modal = null;
-    render();
-    showToast('ගෙවීම සටහන් විය! 50/50 බෙදීමට එකතු විය.');
-  }
-
-  // LUXURY CANVAS ANIMATION
-  const canvas = $('waveCanvas');
-  const ctx = canvas.getContext('2d');
-  let width, height, time = 0;
-
-  function resizeCanvas() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  function animateWaves() {
-    ctx.clearRect(0, 0, width, height);
-    time += 0.003;
-
-    const waves = [
-      { color: '#d4af37', alpha: 0.12, speed: 0.003, amplitude: 50, offset: 0, heightRatio: 0.35 },
-      { color: '#a855f7', alpha: 0.10, speed: 0.004, amplitude: 60, offset: 2, heightRatio: 0.60 },
-      { color: '#ec4899', alpha: 0.08, speed: 0.002, amplitude: 55, offset: 4, heightRatio: 0.82 }
-    ];
-
-    waves.forEach(w => {
-      ctx.beginPath();
-      ctx.moveTo(0, height);
-      for (let x = 0; x <= width; x += 8) {
-        const y = height * w.heightRatio + Math.sin(x * w.speed + time + w.offset) * w.amplitude;
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(width, height);
-      ctx.fillStyle = w.color;
-      ctx.globalAlpha = w.alpha;
-      ctx.fill();
-    });
-
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animateWaves);
-  }
-
-  (async () => {
-    if (!DB.passwordHash) DB.passwordHash = await sha256('sahan@flix');
-    saveDB();
-    animateWaves();
-    render();
-  })();
-
-  window.addEventListener('hashchange', () => {
-    state.view = location.hash === '#staff' ? (isAuthenticated ? 'admin' : 'login') : 'book';
-    render();
-  });
+  renderServices();
 </script>
+
 </body>
 </html>
